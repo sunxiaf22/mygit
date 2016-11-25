@@ -41,19 +41,30 @@ public class FileUtils {
 			throw e;
 		} finally {
 			if (null != pso)
-				pso.close();
+				try {
+					
+					pso.close();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
 			if (null != pse)
-				pse.close();
-			try {
-				fr.close();
-			} catch (IOException e) {
-				logger.error(e.getMessage());
+			{
+				try {
+					pse.close();
+				} catch (Exception e) {
+					logger.error(e.getMessage());
+				}
 			}
-			try {
-				br.close();
-			} catch (IOException e) {
-				logger.error(e.getMessage());
+			if (null != br)
+			{
+				try {
+					br.close();
+				} catch (IOException e) {
+					logger.error(e.getMessage());
+				}
 			}
+			
+				
 		}
 		return contentList;
 	}
