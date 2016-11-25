@@ -11,7 +11,7 @@ String configs = StringUtil.getLatestIP() + " --- " +" --- " + StringUtil.getRoo
   <head>
     <base href="<%=basePath%>">
     
-    <title>Harvest Tree of Life Church v2.0</title>
+    <title>Harvest Tree of Life Church v3.0</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -23,7 +23,7 @@ String configs = StringUtil.getLatestIP() + " --- " +" --- " + StringUtil.getRoo
   </head>
   
   <body>
-    This is index page of our church. v2.1 <br>
+    This is index page of our church. v3.1 <br>
     Configurations:<br/>
     <%=configs %>
     
