@@ -5,15 +5,12 @@ import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Date;
 import java.util.Properties;
-
-import javax.mail.Address;
 import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -68,33 +65,4 @@ public class TestMail {
         Transport.send(mailMessage);
     }
     
-    
-    public static void check() throws MessagingException, GeneralSecurityException {
-        Properties props = new Properties();
-        props.setProperty("mail.debug", "true");
-        props.setProperty("mail.smtp.auth", "true");
-        props.put("mail.smtp.port", "465");
-        props.setProperty("mail.host", "smtp.qq.com");
-        props.setProperty("mail.transport.protocol", "smtp");
-        MailSSLSocketFactory sf = new MailSSLSocketFactory();
-        sf.setTrustAllHosts(true);
-        props.put("mail.smtp.ssl.enable", "true");
-        props.put("mail.smtp.ssl.socketFactory", sf);
-     
-        Session session = Session.getInstance(props);
-     
-        Message msg = new MimeMessage(session);
-        msg.setSubject("seenews");
-        StringBuilder builder = new StringBuilder();
-        builder.append("url = " + "http://blog.csdn.net/never_cxb/article/details/50524571");
-        builder.append("\n“≥√Ê≈¿≥Ê¥ÌŒÛ");
-        builder.append("\n ±º‰ " + System.currentTimeMillis());
-        msg.setText(builder.toString());
-        msg.setFrom(new InternetAddress("164570618@qq.com"));
-     
-        Transport transport = session.getTransport();
-        transport.connect("smtp.qq.com", "164570618@qq.com", "sunxias123456");
-        transport.sendMessage(msg, new Address[] { new InternetAddress("164570618@qq.com") });
-        transport.close();
-      }
 }
