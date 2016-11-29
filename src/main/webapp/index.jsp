@@ -1,16 +1,16 @@
-<%@page import="org.church.our.loving.util.StringUtil"%>
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page import="org.church.our.loving.util.StringUtil" %>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-String configs = StringUtil.getLatestIP() + " --- " +" --- " + StringUtil.getRootDir();
+String configs = " Base: " + basePath + "<br/> Root Dir:  " + StringUtil.getRootDir() + "<br/> Application Path: " + application.getRealPath("") + "<br/>";
 %>
 
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE html>
 <html>
-  <head>
+<head>
     <base href="<%=basePath%>">
-    
+	<meta charset="UTF-8">
     <title>Harvest Tree of Life Church v3.0</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -21,11 +21,15 @@ String configs = StringUtil.getLatestIP() + " --- " +" --- " + StringUtil.getRoo
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
   </head>
-  
   <body>
     This is index page of our church. v3.1 <br>
     Configurations:<br/>
     <%=configs %>
-    
+    <form method="POST" enctype="multipart/form-data" action="upload">
+	  File to upload: <input type="file" name="upfile"><br/>
+	  Notes about the file: <input type="text" name="note"><br/>
+	  <br/>
+  		<input type="submit" value="Press"> to upload the file!
+	</form>
   </body>
 </html>

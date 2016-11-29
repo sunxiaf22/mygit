@@ -1,75 +1,18 @@
 package org.church.our.loving.util;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.text.ParsePosition;
-
-import org.church.our.loving.constants.IOurChurchConstants;
 
 public class StringUtil {
 
     public static final String DATE_FORMAT_FULL_MONTH = "dd MMMMM yyyy";
     public static final String DATE_FORMAT_SLASH = "dd/MM/yyyy";
     public static final String DATE_FORMAT_SESCOND = "yyyy-MM-dd HH:mm:ss";
-    private static final Logger logger = new Logger(1);
-
-    /**
-     * 
-     * @param filePath
-     * @return
-     */
-    public static String readFile(String filePath) {
-        if (isEmpty(filePath)) {
-            return "";
-        }
-        try {
-            return readInputStream(new FileInputStream(new File(filePath)));
-        } catch (FileNotFoundException e) {
-            logger.error("Read file" + filePath + " encounters an exception: "
-                    + e.getMessage(), e);
-        }
-        return "";
-    }
-
-    /**
-     * 
-     * @param is
-     * @return
-     */
-    public static String readInputStream(InputStream is) {
-        if (is == null) {
-            return "";
-        }
-        BufferedReader in = new BufferedReader(new InputStreamReader(is));
-        StringBuffer buffer = new StringBuffer();
-        String line = "";
-        try {
-            while ((line = in.readLine()) != null) {
-                buffer.append(line);
-            }
-        } catch (IOException e) {
-            logger.error("IOException occured in readInputStream", e);
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-            } catch (IOException e) {
-                logger.error("IOException occured in readInputStream", e);
-            }
-        }
-        return buffer.toString();
-    }
 
     /**
      * 
@@ -110,24 +53,6 @@ public class StringUtil {
 
     /**
      * 
-     * @param inputStr
-     * @param oldValue
-     * @param newValue
-     * @return
-     */
-    public static String replaceNewLine(String inputStr, String oldValue,
-            String newValue) {
-        String patternStr = oldValue;
-        String replaceStr = newValue.replaceAll("\\\\", "\\\\\\\\").replaceAll(
-                "\\$", "\\\\\\$"); // spec sign '$' and '\' in newValue
-        Pattern pattern = Pattern.compile(patternStr);
-        Matcher matcher = pattern.matcher(inputStr);
-
-        return matcher.replaceAll(replaceStr);
-    }
-
-    /**
-     * 
      * @param str
      * @return
      */
@@ -137,56 +62,6 @@ public class StringUtil {
         }
 
         return str;
-    }
-
-    public static String linkUrlProcess(String url) {
-        url = deNull(url).trim();
-        if ("".equals(url) || "#".equals(url)) {
-            return "javascript:void(0);";
-        } else {
-        	if(url.toLowerCase().contains("/content/dam/")){
-            	return url;
-            }else if (url.toLowerCase().startsWith("/content/")) {
-                int anchorPos = url.indexOf("#");
-		        String anchor = "";
-		        if (anchorPos > 0) {
-		          anchor = url.substring(anchorPos, url.length());
-		          url = url.substring(0, anchorPos);
-		        }
-
-		        int extSepPos = url.lastIndexOf(".");
-		        int slashPos = url.lastIndexOf("/");
-		        if ((extSepPos <= 0) || (extSepPos < slashPos)) {
-		        	url = url + ".html" + anchor;
-		        }else {
-					int extHtml = url.lastIndexOf(".html");
-		        	if(extHtml < 0){
-		        		url = url + ".html" + anchor;
-		        	}else{
-		        		url = url + anchor;
-		        	}
-		        }
-	            return url;
-            }
-            
-            if (url.toLowerCase().startsWith("javascript:")) {
-                return url;
-            }
-            
-            if (url.toLowerCase().startsWith("#") && url.length() > 1) {
-                return url;
-            }
-            
-            if (url.toLowerCase().startsWith("mailto:")) {
-                return url;
-            }
-            
-            if (url.toLowerCase().startsWith("http://") || url.toLowerCase().startsWith("https://")) {
-                return url;
-            } else {
-                return "http://" + url;
-            }
-        }
     }
 
     public static Date toDate(String strDateTime, String dateTimeFormat) {
@@ -238,32 +113,11 @@ public class StringUtil {
 		 return System.getProperty("user.dir");
 	 }
 	 
-	 public static String getLatestIP () {
-		 String latestIP = "";
-		 File ipFile = new File(IOurChurchConstants.IP_FILE);
-		 try {
-			 if (!ipFile.exists()) {
-				 ipFile.createNewFile();
-			 }
-			 List<String> ipLists = FileUtils.getFileContentList(ipFile);
-			 if (null != ipLists && ipLists.size() > 0)
-			 latestIP = ipLists.get(ipLists.size() - 1).split("\\|")[0].trim();
-			
-		} catch (Exception e) {
-			 logger.error("Exception occured in getLatestIP", e);
-		}
-		return latestIP;
+	 public static String processException (Exception e) {
+		 StringWriter sw = new StringWriter();
+		 PrintWriter printWriter = new PrintWriter(sw);
+		 e.printStackTrace(printWriter);
+		 return sw.toString();
 	 }
 	 
-	 public static String getForwardLink() {
-		 String forwardLink = "";
-		 File forwardFile = new File(IOurChurchConstants.FORWARD_FILE);
-		 try {
-			 List<String> linkLists = FileUtils.getFileContentList(forwardFile);
-			 if (null != linkLists) forwardLink = linkLists.get(0);
-		} catch (Exception e) {
-			 logger.error("Exception occured in getForwardLink", e);
-		}
-		 return forwardLink;
-	 }
 }

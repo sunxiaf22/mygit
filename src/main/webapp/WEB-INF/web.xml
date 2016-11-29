@@ -34,4 +34,14 @@
     <servlet-name>SendMail</servlet-name>
     <url-pattern>/SendMail</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description>This servlet is used to handle file uploading cases.</description>
+    <display-name>Upload</display-name>
+    <servlet-name>Upload</servlet-name>
+    <servlet-class>org.church.our.loving.http.Upload</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Upload</servlet-name>
+    <url-pattern>/upload</url-pattern>
+  </servlet-mapping>
 </web-app>
