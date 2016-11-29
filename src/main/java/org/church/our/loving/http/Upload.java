@@ -2,6 +2,7 @@ package org.church.our.loving.http;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -32,19 +33,21 @@ public class Upload extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
-		response.setCharacterEncoding("utf-8");
-		response.getWriter().append("Served at: ").append(request.getContextPath()).append("<br/>");
 		//File repository = new File(StringUtil.getRootDir());
+		PrintWriter out =  response.getWriter();
 		try {
 			boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-			response.getWriter().append("Has file upload request.").append("<br/>");
+			out.println("Has file upload request.<br/><br/>");
+			out.println(".<br/><br/>");
 			if (isMultipart) {
 				// Create a factory for disk-based file items
 				DiskFileItemFactory factory = new DiskFileItemFactory();
 				
 				// Configure a repository (to ensure a secure temp location is used)
-				//response.getWriter().append(repository.getAbsolutePath()).append("<br/>");
+				//out.println(repository.getAbsolutePath());
 				//factory.setRepository(repository);
 				
 				ProgressListener progressListener = new ProgressListener(){
@@ -67,28 +70,28 @@ public class Upload extends HttpServlet {
 				List<FileItem> items = upload.parseRequest(request);
 				for (FileItem item : items) {
 					if (item.isFormField()) {
-						response.getWriter().append("===================INPUTS================").append("<br/>");
-						response.getWriter().append("Field Name: " + item.getFieldName() + " - Value : " + item.getString()).append("<br/>");
+						out.println("===================INPUTS================<br/>");
+						out.println("Field Name: " + item.getFieldName() + " - Value : " + item.getString("utf-8"));
 					}else {
-						response.getWriter().append("===================FILE================").append("<br/>");
+						out.println("===================FILE================<br/>");
 					    String fileName = item.getName();
 					    String contentType = item.getContentType();
 					    boolean isInMemory = item.isInMemory();
 					    long sizeInBytes = item.getSize();
-						response.getWriter().append("File: " + fileName +  " - contentType : " + contentType + " isInMemory:" + isInMemory + " sizeInBytes : "+ sizeInBytes ).append("<br/>");
-						String uploadDirStr = "upload"; 
+						out.println("File: " + fileName +  " - contentType : " + contentType + " isInMemory:" + isInMemory + " sizeInBytes : "+ sizeInBytes );
+						String uploadDirStr = StringUtil.getRootDir() + File.separator + "upload"; 
 						File uploadDir = new File(uploadDirStr);
 						if (!uploadDir.exists()) {
 							uploadDir.mkdirs();
 						}
 						item.write(new File(uploadDirStr + File.separator +  fileName));
-						response.getWriter().append("<a href =\"upload/" +  fileName + "\"> donwload file</a>");
+						out.println("<br/><br/><a href =\"download?filename=" +  fileName + "\"> donwload file </a>");
 					}
 				}
 			}
 			
 		} catch (Exception e) {
-			response.getWriter().append(StringUtil.processException(e));
+			out.println(StringUtil.processException(e));
 		} finally {
 			
 		}

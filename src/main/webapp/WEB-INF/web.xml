@@ -44,4 +44,14 @@
     <servlet-name>Upload</servlet-name>
     <url-pattern>/upload</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DowloadFile</display-name>
+    <servlet-name>DowloadFile</servlet-name>
+    <servlet-class>org.church.our.loving.http.DowloadFile</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DowloadFile</servlet-name>
+    <url-pattern>/download</url-pattern>
+  </servlet-mapping>
 </web-app>
