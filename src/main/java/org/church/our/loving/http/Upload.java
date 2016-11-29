@@ -76,7 +76,7 @@ public class Upload extends HttpServlet {
 					    boolean isInMemory = item.isInMemory();
 					    long sizeInBytes = item.getSize();
 						response.getWriter().append("File: " + fileName +  " - contentType : " + contentType + " isInMemory:" + isInMemory + " sizeInBytes : "+ sizeInBytes ).append("<br/>");
-						String uploadDirStr = getServletContext().getRealPath("") + File.separator + "upload"; 
+						String uploadDirStr = "upload"; 
 						File uploadDir = new File(uploadDirStr);
 						if (!uploadDir.exists()) {
 							uploadDir.mkdirs();
