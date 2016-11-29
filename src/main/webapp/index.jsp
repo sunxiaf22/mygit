@@ -11,7 +11,7 @@ String configs = " Base: " + basePath + "<br/> Root Dir:  " + StringUtil.getRoot
 <head>
     <base href="<%=basePath%>">
 	<meta charset="UTF-8">
-    <title>Harvest Tree of Life Church v3.0</title>
+    <title>Harvest Tree v4.0</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -22,7 +22,7 @@ String configs = " Base: " + basePath + "<br/> Root Dir:  " + StringUtil.getRoot
 	-->
   </head>
   <body>
-    This is index page of our church. v3.1 <br>
+    This is index page of v4.1 <br>
     Configurations:<br/>
     <%=configs %>
     <form method="POST" enctype="multipart/form-data" action="upload">
