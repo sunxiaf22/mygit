@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.church.our.loving.util.StringUtil;
 
 /**
@@ -32,7 +31,7 @@ public class DowloadFile extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		response.setContentType("application/octet-stream");  
+		response.setContentType("application/octet-stream");
 		String filename = request.getParameter("filename"); 
 		FileInputStream fileInputStream = null;
 		OutputStream os = response.getOutputStream();
@@ -42,6 +41,10 @@ public class DowloadFile extends HttpServlet {
 				return;
 			}
 			filename = new String(filename.getBytes("ISO-8859-1"), "UTF-8");
+			if (filename.toLowerCase().endsWith(".jpg") || filename.toLowerCase().endsWith(".png") || 
+					filename.toLowerCase().endsWith(".jpeg") || filename.toLowerCase().endsWith(".gif")) {
+				response.setContentType("image/png");
+			}
 			String userAgent = request.getHeader("user-agent");
 			boolean isInternetExplorer = (userAgent.indexOf("MSIE") > -1);
 			byte[] fileNameBytes = filename.getBytes((isInternetExplorer) ? ("windows-1250") : ("utf-8"));
