@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URLEncoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -45,14 +47,8 @@ public class DowloadFile extends HttpServlet {
 					filename.toLowerCase().endsWith(".jpeg") || filename.toLowerCase().endsWith(".gif")) {
 				response.setContentType("image/png");
 			}
-			String userAgent = request.getHeader("user-agent");
-			boolean isInternetExplorer = (userAgent.indexOf("MSIE") > -1);
-			byte[] fileNameBytes = filename.getBytes((isInternetExplorer) ? ("windows-1250") : ("utf-8"));
-		    String dispositionFileName = "";
-		    for (byte b: fileNameBytes) dispositionFileName += (char)(b & 0xff);
-		    String disposition = "attachment; filename=\"" + dispositionFileName + "\"";
-		    response.setHeader("Content-disposition", disposition);
-			//response.setHeader("Content-Disposition","attachment; filename=\"" + filename + "\"");   
+			response.setHeader("Content-Disposition","attachment; filename=\"" + filename + "\"");
+			filename =URLEncoder.encode(filename, "utf-8");
 		    String filepath = StringUtil.getRootDir() + File.separator + "upload" + File.separator;   
 			File downloadFile = new File(filepath);
 			if (!downloadFile.exists()) {

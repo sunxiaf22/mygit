@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,9 +38,8 @@ public class ShowFileList extends HttpServlet {
 		for (int i = 0; i < files.length; i++) {
 			File file = files[i];
 			String originalFilename = file.getName();
-			System.out.println(URLDecoder.decode(originalFilename, "utf-8"));
-			String filename = new String(file.getName().getBytes("UTF-8"), "UTF-8");
-			printWriter.append("<p>" + (i+1) + ".  <a href =\"download?filename=" + filename + "\">" + filename + "</a></p>" );
+			String decodedFilename = URLDecoder.decode(originalFilename, "utf-8");
+			printWriter.append("<p>" + (i+1) + ".  <a href =\"download?filename=" + decodedFilename + "\">" + decodedFilename + originalFilename +  "</a></p>" );
 		}
 		
 		printWriter.flush();

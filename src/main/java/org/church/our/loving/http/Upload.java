@@ -3,6 +3,7 @@ package org.church.our.loving.http;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -81,11 +82,13 @@ public class Upload extends HttpServlet {
 					    boolean isInMemory = item.isInMemory();
 					    long sizeInBytes = item.getSize();
 						out.println("File: " + fileName +  " - contentType : " + contentType + " isInMemory:" + isInMemory + " sizeInBytes : "+ sizeInBytes );
+						String fileNameEncoded = URLEncoder.encode(fileName,"utf-8");
+						out.println("Encoded file name " + fileNameEncoded);
 						File uploadDir = new File(OUTPUT_DIR);
 						if (!uploadDir.exists()) {
 							uploadDir.mkdirs();
 						}
-						item.write(new File(OUTPUT_DIR + File.separator +  fileName));
+						item.write(new File(OUTPUT_DIR + File.separator +  fileNameEncoded));
 						out.println("<br/><br/><a href =\"download?filename=" +  fileName + "\"> donwload file </a>");
 					}
 				}
