@@ -39,7 +39,7 @@ public class ShowFileList extends HttpServlet {
 			File file = files[i];
 			String originalFilename = file.getName();
 			String decodedFilename = URLDecoder.decode(originalFilename, "utf-8");
-			printWriter.append("<p>" + (i+1) + ".  <a href =\"download?filename=" + decodedFilename + "\">" + decodedFilename + originalFilename +  "</a></p>" );
+			printWriter.append("<p>" + (i+1) + ".  <a href =\"download?filename=" + decodedFilename + "\">" + decodedFilename +  "</a></p>" );
 		}
 		
 		printWriter.flush();

@@ -47,13 +47,20 @@ public class DowloadFile extends HttpServlet {
 					filename.toLowerCase().endsWith(".jpeg") || filename.toLowerCase().endsWith(".gif")) {
 				response.setContentType("image/png");
 			}
-			response.setHeader("Content-Disposition","attachment; filename=\"" + filename + "\"");
-			filename =URLEncoder.encode(filename, "utf-8");
+			String userAgent = request.getHeader("user-agent");
+			boolean isInternetExplorer = (userAgent.indexOf("MSIE") > -1);
+			byte[] fileNameBytes = filename.getBytes((isInternetExplorer) ? ("windows-1250") : ("utf-8"));
+		    String dispositionFileName = "";
+		    for (byte b: fileNameBytes) dispositionFileName += (char)(b & 0xff);
+		    String disposition = "attachment; filename=\"" + dispositionFileName + "\"";
+		    response.setHeader("Content-disposition", disposition);
+			//response.setHeader("Content-Disposition","attachment; filename=\"" + filename + "\"");
 		    String filepath = StringUtil.getRootDir() + File.separator + "upload" + File.separator;   
 			File downloadFile = new File(filepath);
 			if (!downloadFile.exists()) {
 				System.out.println("No file found!");
 			}
+			filename =URLEncoder.encode(filename, "utf-8");
 			fileInputStream = new FileInputStream(filepath + filename);  
 			if (null != fileInputStream) {
 				int bytesRead = -1;
