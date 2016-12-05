@@ -36,7 +36,8 @@ public class ShowFileList extends HttpServlet {
 		PrintWriter printWriter = response.getWriter();
 		for (int i = 0; i < files.length; i++) {
 			File file = files[i];
-			printWriter.append("<p>" + (i+1) + ".  <a href =\"download?filename=" + file.getName() + "\">" + file.getName() + "</a></p>" );
+			String filename = new String(file.getName().getBytes("ISO-8859-1"), "UTF-8");
+			printWriter.append("<p>" + (i+1) + ".  <a href =\"download?filename=" + filename + "\">" + filename + "</a></p>" );
 		}
 		
 		printWriter.flush();
