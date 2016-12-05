@@ -3,6 +3,8 @@ package org.church.our.loving.http;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,14 +31,17 @@ public class ShowFileList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
-		response.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("UTF-8");
 		File outdir = new File(OUTPUT_DIR);
 		File [] files = outdir.listFiles();
 		PrintWriter printWriter = response.getWriter();
 		for (int i = 0; i < files.length; i++) {
 			File file = files[i];
-			String filename = new String(file.getName().getBytes("ISO-8859-1"), "UTF-8");
+			String originalFilename = file.getName();
+			System.out.println(URLDecoder.decode(originalFilename, "utf-8"));
+			String filename = new String(file.getName().getBytes("UTF-8"), "UTF-8");
 			printWriter.append("<p>" + (i+1) + ".  <a href =\"download?filename=" + filename + "\">" + filename + "</a></p>" );
 		}
 		
