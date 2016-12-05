@@ -8,14 +8,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.church.our.loving.constants.IOurChurchConstants;
+import org.church.our.loving.util.StringUtil;
 
 /**
  * Servlet implementation class ShowFileList
  */
 public class ShowFileList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	public static final String OUTPUT_DIR= StringUtil.getRootDir() + File.separator + "upload";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -31,7 +31,7 @@ public class ShowFileList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html");
 		response.setCharacterEncoding("utf-8");
-		File outdir = new File(IOurChurchConstants.OUTPUT_DIR);
+		File outdir = new File(OUTPUT_DIR);
 		File [] files = outdir.listFiles();
 		PrintWriter printWriter = response.getWriter();
 		for (int i = 0; i < files.length; i++) {
