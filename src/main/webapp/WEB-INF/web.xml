@@ -54,4 +54,14 @@
     <servlet-name>DowloadFile</servlet-name>
     <url-pattern>/download</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ShowFileList</display-name>
+    <servlet-name>ShowFileList</servlet-name>
+    <servlet-class>org.church.our.loving.http.ShowFileList</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowFileList</servlet-name>
+    <url-pattern>/showfile</url-pattern>
+  </servlet-mapping>
 </web-app>

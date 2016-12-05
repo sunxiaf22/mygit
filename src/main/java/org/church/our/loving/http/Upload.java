@@ -14,6 +14,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.ProgressListener;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.church.our.loving.constants.IOurChurchConstants;
 import org.church.our.loving.util.StringUtil;
 
 /**
@@ -79,12 +80,11 @@ public class Upload extends HttpServlet {
 					    boolean isInMemory = item.isInMemory();
 					    long sizeInBytes = item.getSize();
 						out.println("File: " + fileName +  " - contentType : " + contentType + " isInMemory:" + isInMemory + " sizeInBytes : "+ sizeInBytes );
-						String uploadDirStr = StringUtil.getRootDir() + File.separator + "upload"; 
-						File uploadDir = new File(uploadDirStr);
+						File uploadDir = new File(IOurChurchConstants.OUTPUT_DIR);
 						if (!uploadDir.exists()) {
 							uploadDir.mkdirs();
 						}
-						item.write(new File(uploadDirStr + File.separator +  fileName));
+						item.write(new File(IOurChurchConstants.OUTPUT_DIR + File.separator +  fileName));
 						out.println("<br/><br/><a href =\"download?filename=" +  fileName + "\"> donwload file </a>");
 					}
 				}

@@ -11,7 +11,7 @@ String configs = " Base: " + basePath + "<br/> Root Dir:  " + StringUtil.getRoot
 <head>
     <base href="<%=basePath%>">
 	<meta charset="UTF-8">
-    <title>Harvest Tree v5.0</title>
+    <title>Harvest Tree v6.0</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -31,5 +31,11 @@ String configs = " Base: " + basePath + "<br/> Root Dir:  " + StringUtil.getRoot
 	  <br/>
   		<input type="submit" value="Press"> to upload the file!
 	</form>
+	
+	<p>
+	View uploaded files: <a href="showfile">click here</a>
+	</p>
+	
+	<p>Last Updated Date: Dec 05, 2016 2:50:05 PM </p>
   </body>
 </html>
