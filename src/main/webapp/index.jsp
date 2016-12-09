@@ -1,10 +1,9 @@
-<%@ page import="org.church.our.loving.util.StringUtil,org.church.our.loving.constants.IOurChurchConstants" %>
+<%@ page import="org.church.our.loving.util.StringUtil" %>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 String configs = " Base: " + basePath + "<br/> Root Dir:  " + StringUtil.getRootDir() + "<br/> <br/>";
-String mapString = IOurChurchConstants.OVERALL_MAP + "";
 %>
 
 <!DOCTYPE html>
@@ -27,7 +26,7 @@ String mapString = IOurChurchConstants.OVERALL_MAP + "";
   <body>
     This is index page<br>
     Configurations:<br/>
-    <%=configs + " ---" + mapString %>
+    <%=configs %>
     <form method="POST" enctype="multipart/form-data" action="upload">
 	  File to upload: <input type="file" name="upfile"><br/>
 	  Notes about the file: <input type="text" name="note"><br/>
