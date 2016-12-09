@@ -47,7 +47,7 @@ public class Upload extends HttpServlet {
 			boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 			out.println("Has file upload request.<br/><br/>");
 			out.println(".<br/><br/>");
-			String uploadDate =  new Date().toString();
+			String uploadDate =  StringUtil.formateDateToString(new Date(), StringUtil.DATE_FORMAT_SESCOND);
 			if (isMultipart) {
 				// Create a factory for disk-based file items
 				DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -94,8 +94,8 @@ public class Upload extends HttpServlet {
 						}
 						item.write(new File(OUTPUT_DIR + File.separator +  fileNameEncoded));
 						out.println("<br/><br/><a href =\"download?filename=" +  fileName + "\"> donwload file </a>");
-						String writeDate = new Date().toString();
-						fileDateMapping.put(fileNameEncoded, " - Uploaded @ [" + uploadDate + " to " + writeDate + "]");
+						String writeDate = StringUtil.formateDateToString(new Date(), StringUtil.DATE_FORMAT_SESCOND);
+						fileDateMapping.put(fileNameEncoded, uploadDate + " to " + writeDate);
 					}
 				}
 			}
