@@ -12,14 +12,16 @@ String configs = " Base: " + basePath + "<br/> Root Dir:  " + StringUtil.getRoot
     <base href="<%=basePath%>">
 	<meta charset="UTF-8">
     <title>Harvest Tree v6.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<!-- 
+	 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+	 -->
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	<link rel="stylesheet" href="images/w3.css" type="text/css">
   </head>
   <body>
     This is index page<br>
