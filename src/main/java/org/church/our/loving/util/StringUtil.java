@@ -2,6 +2,7 @@ package org.church.our.loving.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.PrintWriter;
@@ -45,7 +46,7 @@ public class StringUtil {
     public static String formateDateToString(Date date, String format) {
         String rv = null;
         if (date != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat(format);
+            SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.CHINA);
             rv = sdf.format(date);
         }
         return rv;

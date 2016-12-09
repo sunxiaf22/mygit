@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,7 +25,7 @@ import org.church.our.loving.util.StringUtil;
 public class Upload extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final String OUTPUT_DIR= StringUtil.getRootDir() + File.separator + "upload";
-
+	public static Map<String, String> fileDateMapping = new HashMap<String,String>(); 
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,6 +47,7 @@ public class Upload extends HttpServlet {
 			boolean isMultipart = ServletFileUpload.isMultipartContent(request);
 			out.println("Has file upload request.<br/><br/>");
 			out.println(".<br/><br/>");
+			String uploadDate =  StringUtil.formateDateToString(new Date(), StringUtil.DATE_FORMAT_SESCOND);
 			if (isMultipart) {
 				// Create a factory for disk-based file items
 				DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -84,12 +87,15 @@ public class Upload extends HttpServlet {
 						out.println("File: " + fileName +  " - contentType : " + contentType + " isInMemory:" + isInMemory + " sizeInBytes : "+ sizeInBytes );
 						String fileNameEncoded = URLEncoder.encode(fileName,"utf-8");
 						out.println("Encoded file name " + fileNameEncoded);
+						
 						File uploadDir = new File(OUTPUT_DIR);
 						if (!uploadDir.exists()) {
 							uploadDir.mkdirs();
 						}
 						item.write(new File(OUTPUT_DIR + File.separator +  fileNameEncoded));
 						out.println("<br/><br/><a href =\"download?filename=" +  fileName + "\"> donwload file </a>");
+						String writeDate = StringUtil.formateDateToString(new Date(), StringUtil.DATE_FORMAT_SESCOND);
+						fileDateMapping.put(fileNameEncoded, uploadDate + " to " + writeDate);
 					}
 				}
 			}

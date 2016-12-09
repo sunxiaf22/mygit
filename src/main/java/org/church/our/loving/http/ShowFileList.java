@@ -37,9 +37,15 @@ public class ShowFileList extends HttpServlet {
 		PrintWriter printWriter = response.getWriter();
 		for (int i = 0; i < files.length; i++) {
 			File file = files[i];
-			String originalFilename = file.getName();
-			String decodedFilename = URLDecoder.decode(originalFilename, "utf-8");
-			printWriter.append("<p>" + (i+1) + ".  <a href =\"download?filename=" + decodedFilename + "\">" + decodedFilename +  "</a></p>" );
+			if (!file.isDirectory()) {
+				String originalFilename = file.getName();
+				String dateStr = "";
+				if (Upload.fileDateMapping.containsKey(originalFilename)) {
+					dateStr = Upload.fileDateMapping.get(originalFilename);
+				}
+				String decodedFilename = URLDecoder.decode(originalFilename, "utf-8");
+				printWriter.append("<p>" + (i+1) + ".  <a href =\"download?filename=" + decodedFilename + "\">" + decodedFilename + " @" + dateStr +  "</a></p>" );
+			}
 		}
 		
 		printWriter.flush();
