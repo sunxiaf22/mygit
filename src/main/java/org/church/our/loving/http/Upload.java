@@ -95,7 +95,7 @@ public class Upload extends HttpServlet {
 						item.write(new File(OUTPUT_DIR + File.separator +  fileNameEncoded));
 						out.println("<br/><br/><a href =\"download?filename=" +  fileName + "\"> donwload file </a>");
 						String writeDate = StringUtil.formateDateToString(new Date(), StringUtil.DATE_FORMAT_SESCOND);
-						fileDateMapping.put(fileNameEncoded, uploadDate + " to " + writeDate);
+						fileDateMapping.put(fileNameEncoded, "File was uploaded at: [" + uploadDate + "  to  " + writeDate + "]");
 					}
 				}
 			}

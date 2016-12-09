@@ -8,14 +8,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.church.our.loving.util.StringUtil;
 
 /**
  * Servlet implementation class ShowFileList
  */
 public class ShowFileList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	public static final String OUTPUT_DIR= StringUtil.getRootDir() + File.separator + "upload";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -32,7 +30,7 @@ public class ShowFileList extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html");
 		response.setCharacterEncoding("UTF-8");
-		File outdir = new File(OUTPUT_DIR);
+		File outdir = new File(Upload.OUTPUT_DIR);
 		File [] files = outdir.listFiles();
 		PrintWriter printWriter = response.getWriter();
 		for (int i = 0; i < files.length; i++) {
@@ -44,7 +42,7 @@ public class ShowFileList extends HttpServlet {
 					dateStr = Upload.fileDateMapping.get(originalFilename);
 				}
 				String decodedFilename = URLDecoder.decode(originalFilename, "utf-8");
-				printWriter.append("<p>" + (i+1) + ".  <a href =\"download?filename=" + decodedFilename + "\">" + decodedFilename + " @" + dateStr +  "</a></p>" );
+				printWriter.append("<p>" + (i+1) + ".  <a href =\"download?filename=" + decodedFilename + "\">" + decodedFilename +  "</a> " + dateStr +  " </p>" );
 			}
 		}
 		
