@@ -3,6 +3,7 @@ package org.church.our.loving.util;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.PrintWriter;
@@ -13,7 +14,7 @@ public class StringUtil {
 
     public static final String DATE_FORMAT_FULL_MONTH = "dd MMMMM yyyy";
     public static final String DATE_FORMAT_SLASH = "dd/MM/yyyy";
-    public static final String DATE_FORMAT_SESCOND = "yyyy-MM-dd HH:mm:ss";
+    public static final String DATE_FORMAT_SESCOND = "yyyy-MM-dd'T'HH:mm:ss'Z'";
 
     /**
      * 
@@ -47,6 +48,7 @@ public class StringUtil {
         String rv = null;
         if (date != null) {
             SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.CHINA);
+            sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
             rv = sdf.format(date);
         }
         return rv;
