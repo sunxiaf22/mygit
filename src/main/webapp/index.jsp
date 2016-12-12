@@ -3,7 +3,8 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-String configs = " Base: " + basePath + "<br/> Root Dir:  " + StringUtil.getRootDir() + "<br/> <br/>" +  this.getClass().getResource("/").getPath();
+String configs = " Base: " + basePath + "<br/> Root Dir:  " + StringUtil.getRootDir() + "<br/> <br/>" + 
+"--- " + request.getSession().getServletContext().getRealPath("/");
 %>
 
 <!DOCTYPE html>
