@@ -3,7 +3,7 @@
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-String configs = " Base: " + basePath + "<br/> Root Dir:  " + StringUtil.getRootDir() + "<br/> <br/>";
+String configs = " Base: " + basePath + "<br/> Root Dir:  " + StringUtil.getRootDir() + "<br/> <br/>" + request.getSession().getServletContext().getRealPath("/"); 
 %>
 
 <!DOCTYPE html>
@@ -11,7 +11,7 @@ String configs = " Base: " + basePath + "<br/> Root Dir:  " + StringUtil.getRoot
 <head>
     <base href="<%=basePath%>">
 	<meta charset="UTF-8">
-    <title>Harvest Tree v7.0</title>
+    <title>Harvest Tree v6.0</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">

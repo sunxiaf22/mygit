@@ -93,6 +93,11 @@ public class Upload extends HttpServlet {
 							uploadDir.mkdirs();
 						}
 						item.write(new File(OUTPUT_DIR + File.separator +  fileNameEncoded));
+						try {
+							out.println("current path = " + this.getClass().getResource("/").getPath());
+							
+						} catch (Exception e) {
+						}
 						out.println("<br/><br/><a href =\"download?filename=" +  fileName + "\"> donwload file </a>");
 						String writeDate = StringUtil.formateDateToString(new Date(), StringUtil.DATE_FORMAT_SESCOND);
 						fileDateMapping.put(fileNameEncoded, "File was uploaded at: [" + uploadDate + "  to  " + writeDate + "]");

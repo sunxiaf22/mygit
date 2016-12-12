@@ -69,6 +69,7 @@
     <display-name>ConfigureSetup</display-name>
     <servlet-name>ConfigureSetup</servlet-name>
     <servlet-class>org.church.our.loving.http.ConfigureSetup</servlet-class>
+    <load-on-startup>1</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>ConfigureSetup</servlet-name>
