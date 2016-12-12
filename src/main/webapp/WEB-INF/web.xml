@@ -64,4 +64,14 @@
     <servlet-name>ShowFileList</servlet-name>
     <url-pattern>/showfile</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConfigureSetup</display-name>
+    <servlet-name>ConfigureSetup</servlet-name>
+    <servlet-class>org.church.our.loving.http.ConfigureSetup</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConfigureSetup</servlet-name>
+    <url-pattern>/configureSetup</url-pattern>
+  </servlet-mapping>
 </web-app>

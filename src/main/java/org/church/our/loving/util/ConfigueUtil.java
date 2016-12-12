@@ -20,7 +20,7 @@ public class ConfigueUtil {
 	}
 	
 	public String loadConfig (String key) {
-		
+		configMap.size();
 		return "";
 	}
 

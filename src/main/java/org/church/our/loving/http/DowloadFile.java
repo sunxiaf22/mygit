@@ -10,6 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.lang3.StringUtils;
 import org.church.our.loving.util.StringUtil;
 
 /**
@@ -35,33 +37,46 @@ public class DowloadFile extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/octet-stream");
 		String filename = request.getParameter("filename"); 
+		String outputdir = request.getParameter("dir");
 		FileInputStream fileInputStream = null;
-		OutputStream os = response.getOutputStream();
+		OutputStream os = null;
 		try {
 			if (null == filename) {
 				System.out.println("No file name provided!");
 				return;
 			}
-			filename = new String(filename.getBytes("ISO-8859-1"), "UTF-8");
-			if (filename.toLowerCase().endsWith(".jpg") || filename.toLowerCase().endsWith(".png") || 
-					filename.toLowerCase().endsWith(".jpeg") || filename.toLowerCase().endsWith(".gif")) {
+			String originalFilename = new String(filename.getBytes("ISO-8859-1"), "UTF-8");
+			
+			if (StringUtils.isEmpty(outputdir)) {
+				outputdir = "upload";
+			}
+			String filepath = StringUtil.getRootDir() + File.separator + outputdir + File.separator;   
+			filename =URLEncoder.encode(originalFilename, "utf-8");
+			try {
+				fileInputStream = new FileInputStream(filepath + filename); 
+			} catch (Exception e) {
+				String error = StringUtil.processException(e);
+				response.setCharacterEncoding("UTF-8");
+				response.setContentType("text/html");
+				response.getWriter().println("<b>File does not exist any more! " + filepath + filename + "</b> <p>");
+				response.getWriter().println(error);
+				response.getWriter().println("</p>");
+				return;
+			}
+			
+			if (originalFilename.toLowerCase().endsWith(".jpg") || originalFilename.toLowerCase().endsWith(".png") || 
+					originalFilename.toLowerCase().endsWith(".jpeg") || originalFilename.toLowerCase().endsWith(".gif")) {
 				response.setContentType("image/png");
 			}
 			String userAgent = request.getHeader("user-agent");
 			boolean isInternetExplorer = (userAgent.indexOf("MSIE") > -1);
-			byte[] fileNameBytes = filename.getBytes((isInternetExplorer) ? ("windows-1250") : ("utf-8"));
+			byte[] fileNameBytes = originalFilename.getBytes((isInternetExplorer) ? ("windows-1250") : ("utf-8"));
 		    String dispositionFileName = "";
 		    for (byte b: fileNameBytes) dispositionFileName += (char)(b & 0xff);
 		    String disposition = "attachment; filename=\"" + dispositionFileName + "\"";
 		    response.setHeader("Content-disposition", disposition);
 			//response.setHeader("Content-Disposition","attachment; filename=\"" + filename + "\"");
-		    String filepath = StringUtil.getRootDir() + File.separator + "upload" + File.separator;   
-			File downloadFile = new File(filepath);
-			if (!downloadFile.exists()) {
-				System.out.println("No file found!");
-			}
-			filename =URLEncoder.encode(filename, "utf-8");
-			fileInputStream = new FileInputStream(filepath + filename);  
+			os = response.getOutputStream();
 			if (null != fileInputStream) {
 				int bytesRead = -1;
 				while ((bytesRead=fileInputStream.read()) != -1) {  
@@ -70,7 +85,7 @@ public class DowloadFile extends HttpServlet {
 			}
 			os.flush();
 		} catch (Exception e) {
-			System.out.println(StringUtil.processException(e) );
+			//System.out.println(StringUtil.processException(e) );
 		} finally {
 			if (null != fileInputStream ) {
 				fileInputStream.close();   
