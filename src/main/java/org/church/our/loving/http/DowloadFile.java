@@ -61,7 +61,8 @@ public class DowloadFile extends HttpServlet {
 				if (targetFile.exists()) {
 					if ("delete".equalsIgnoreCase(type)) {
 						targetFile.delete();
-						request.getRequestDispatcher("/showfile").forward(request, response);
+						//request.getRequestDispatcher("/showfile").forward(request, response);
+						response.sendRedirect("/showfile");
 					} else {
 						fileInputStream = new FileInputStream(filepath + filename); 
 					}
