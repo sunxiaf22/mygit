@@ -52,7 +52,7 @@ public class DowloadFile extends HttpServlet {
 				outputdir = "upload";
 			}
 			if (StringUtils.isEmpty(type)) {
-				outputdir = "download";
+				type = "download";
 			}
 			String filepath = StringUtil.getRootDir() + File.separator + outputdir + File.separator;   
 			filename =URLEncoder.encode(originalFilename, "utf-8");
