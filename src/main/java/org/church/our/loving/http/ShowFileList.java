@@ -42,7 +42,7 @@ public class ShowFileList extends HttpServlet {
 					dateStr = Upload.fileDateMapping.get(originalFilename);
 				}
 				String decodedFilename = URLDecoder.decode(originalFilename, "utf-8");
-				printWriter.append("<p>" + (i+1) + ".  <a href =\"download?filename=" + decodedFilename + "\">" + decodedFilename +  "</a> " + dateStr +  " </p>" );
+				printWriter.append("<p>" + (i+1) + ".  <a href =\"download?filename=" + decodedFilename + "\">" + decodedFilename +  "</a> " + dateStr + " &nbsp;&nbsp; <a href =\"download?type=delete&filename=" + decodedFilename + "\"> Delete</a> </p>" );
 			}
 		}
 		

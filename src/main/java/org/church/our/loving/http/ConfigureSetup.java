@@ -1,15 +1,12 @@
 package org.church.our.loving.http;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 import org.church.our.loving.util.StringUtil;
@@ -41,8 +38,13 @@ public class ConfigureSetup extends HttpServlet {
 		// TODO Auto-generated method stub
 		super.init();
 		try {
+			File targetfile = new File(StringUtil.getRootDir() + "/upload/log4j.properties");
+			if (targetfile.exists()) {
+				PropertyConfigurator.configure(StringUtil.getRootDir() + "/upload/log4j.properties"); 
+			} else {
+				PropertyConfigurator.configure(getServletContext().getRealPath("/") + "config/log4j.properties"); 
+			}
 			
-			PropertyConfigurator.configure(StringUtil.getRootDir() + "/upload/log4j.properties"); 
 		} catch (Exception e) {
 		}
 		Logger l = Logger.getLogger(getClass().getName());

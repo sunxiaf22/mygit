@@ -95,7 +95,6 @@ public class Upload extends HttpServlet {
 						item.write(new File(OUTPUT_DIR + File.separator +  fileNameEncoded));
 						try {
 							out.println("current path = " + this.getClass().getResource("/").getPath());
-							
 						} catch (Exception e) {
 						}
 						out.println("<br/><br/><a href =\"download?filename=" +  fileName + "\"> donwload file </a>");

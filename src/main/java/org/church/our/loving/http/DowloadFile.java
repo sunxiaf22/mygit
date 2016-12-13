@@ -38,6 +38,7 @@ public class DowloadFile extends HttpServlet {
 		response.setContentType("application/octet-stream");
 		String filename = request.getParameter("filename"); 
 		String outputdir = request.getParameter("dir");
+		String type = request.getParameter("type");
 		FileInputStream fileInputStream = null;
 		OutputStream os = null;
 		try {
@@ -50,10 +51,24 @@ public class DowloadFile extends HttpServlet {
 			if (StringUtils.isEmpty(outputdir)) {
 				outputdir = "upload";
 			}
+			if (StringUtils.isEmpty(type)) {
+				outputdir = "download";
+			}
 			String filepath = StringUtil.getRootDir() + File.separator + outputdir + File.separator;   
 			filename =URLEncoder.encode(originalFilename, "utf-8");
 			try {
-				fileInputStream = new FileInputStream(filepath + filename); 
+				File targetFile = new File(filepath + filename);
+				if (targetFile.exists()) {
+					if ("delete".equalsIgnoreCase(type)) {
+						targetFile.delete();
+						request.getRequestDispatcher("/showfile").forward(request, response);
+					} else {
+						fileInputStream = new FileInputStream(filepath + filename); 
+					}
+				}
+				else {
+					throw new Exception("File doesn't exist!");
+				}
 			} catch (Exception e) {
 				String error = StringUtil.processException(e);
 				response.setCharacterEncoding("UTF-8");
@@ -63,6 +78,7 @@ public class DowloadFile extends HttpServlet {
 				response.getWriter().println("</p>");
 				return;
 			}
+			
 			
 			if (originalFilename.toLowerCase().endsWith(".jpg") || originalFilename.toLowerCase().endsWith(".png") || 
 					originalFilename.toLowerCase().endsWith(".jpeg") || originalFilename.toLowerCase().endsWith(".gif")) {
