@@ -15,6 +15,7 @@ public class StringUtil {
     public static final String DATE_FORMAT_FULL_MONTH = "dd MMMMM yyyy";
     public static final String DATE_FORMAT_SLASH = "dd/MM/yyyy";
     public static final String DATE_FORMAT_SESCOND = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+    
 
     /**
      * 
