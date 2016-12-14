@@ -66,13 +66,14 @@ public class TestMail {
     }
     
     public static String commonMail(String mail_to, String subject_v, String content_v, String file_name) {
+    	System.out.println("Sending email............");
     	String result = "SUCCESS";
     	try {
     		String to = mail_to;
     		String subject = subject_v;
     		String content = content_v;
     		Properties props = new Properties();
-    		props.setProperty("mail.debug", "true");
+    		//props.setProperty("mail.debug", "true");
     		props.setProperty("mail.smtp.auth", "true");
     		props.put("mail.smtp.port", "465");
     		props.setProperty("mail.host", "smtp.qq.com");
@@ -99,7 +100,7 @@ public class TestMail {
     		BodyPart contentPart = new MimeBodyPart();
     		contentPart.setContent(content.trim(), "text/html; charset=utf-8");
     		mainPart.addBodyPart(contentPart);
-    		if (null != file_name) {
+    		if (null != file_name && file_name.trim().length() != 0) {
     			BodyPart attachPart = new MimeBodyPart();
     			DataSource dataSource = new FileDataSource(new File(file_name));
     			attachPart.setDataHandler(new DataHandler(dataSource));
@@ -111,8 +112,10 @@ public class TestMail {
 			
 		} catch (Exception e) {
 			result = StringUtil.processException(e);
+			System.out.println(result);
 		} finally {
 			result += "\n End!";
+			System.out.println("Finished sending email... " + result);
 		}
     	return result;
     }

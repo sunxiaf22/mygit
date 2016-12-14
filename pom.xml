@@ -67,27 +67,6 @@
 			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/smtp.jar</systemPath>
 		</dependency>
 		<dependency>
-			<groupId>com.sun.mail.pop3</groupId>
-			<artifactId>com.sun.mail.pop3</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/pop3.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.mail.imap</groupId>
-			<artifactId>com.sun.mail.imap</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/imap.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.mail.gimap</groupId>
-			<artifactId>com.sun.mail.gimap</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/gimap.jar</systemPath>
-		</dependency>
-		<dependency>
 			<groupId>com.sun.mail.dsn</groupId>
 			<artifactId>com.sun.mail.dsn</artifactId>
 			<version>1.0</version>
