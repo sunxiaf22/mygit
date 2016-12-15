@@ -75,4 +75,14 @@
     <servlet-name>ConfigureSetup</servlet-name>
     <url-pattern>/configureSetup</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Forward</display-name>
+    <servlet-name>Forward</servlet-name>
+    <servlet-class>org.church.our.loving.http.Forward</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Forward</servlet-name>
+    <url-pattern>/forward</url-pattern>
+  </servlet-mapping>
 </web-app>
