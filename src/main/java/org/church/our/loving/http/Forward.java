@@ -20,6 +20,7 @@ import org.church.our.loving.util.StringUtil;
 public class Forward extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static Logger logger = Logger.getLogger("Forward");
+	private static String domain = "";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -39,18 +40,20 @@ public class Forward extends HttpServlet {
 			FileUtils.write(new File(IOurChurchConstants.NEW_DOMAIN_STORE), type, "utf-8");
 			out.println("<P> Domain uploaded successfully! <p>");
 			String existingDomain = FileUtils.readFileToString(new File(IOurChurchConstants.NEW_DOMAIN_STORE), "utf-8");
+			domain = existingDomain;
 			out.println("<p> New domain is : " + existingDomain + "</p>");
-			logger.debug("New domain is : " + existingDomain);
+			logger.debug("New domain is : " + domain);
 		}
 		//Forward links
 		else {
 			String app = request.getParameter("app");
-			String existingDomain = FileUtils.readFileToString(new File(IOurChurchConstants.NEW_DOMAIN_STORE), "utf-8");
-			if (!StringUtil.isEmpty(existingDomain)) {
+			if (StringUtil.isEmpty(domain)) {
+				domain = FileUtils.readFileToString(new File(IOurChurchConstants.NEW_DOMAIN_STORE), "utf-8");
+			} else {
 				if (!StringUtil.isEmpty(app)) {
-					response.sendRedirect(existingDomain + "/" + app);
+					response.sendRedirect(domain + "/" + app);
 				} else {
-					response.sendRedirect(existingDomain + "/app2");
+					response.sendRedirect(domain + "/app2");
 				}
 			}
 		}
