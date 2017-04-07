@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.church.our.loving.util.StringUtil;
 import org.church.our.loving.util.TestMail;
 
 /**
@@ -36,7 +37,25 @@ public class SendMail extends HttpServlet {
 		StringWriter sw = new StringWriter();
 		PrintWriter printWriter = new PrintWriter(sw);
 		try {
-			TestMail.send_email();
+			String type = request.getParameter("type");
+			if (StringUtil.isEmpty(type)) {
+				TestMail.send_email();
+			} else {
+				String mailto = request.getParameter("mailto");
+				if (StringUtil.isEmpty(mailto)) {
+					mailto = "164570618@qq.com";
+				}
+				String subject = request.getParameter("subject");
+				if (StringUtil.isEmpty(mailto)) {
+					subject = "subject - empty";
+				}
+				String content = request.getParameter("content");
+				if (StringUtil.isEmpty(mailto)) {
+					subject = "content - empty";
+				}
+				TestMail.commonMail(mailto, subject, content, "");
+			}
+			
 			response.getWriter().append("Email was sent successfully !");
 		} catch (AddressException e) {
 			e.printStackTrace(printWriter);
